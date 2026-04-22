@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth transition-colors duration-300">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthCore by PitaHijauPejuang | TechSprint 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="../frontend/static/PitaHijauPejuang.png">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: { colors: { brandDark: '#0f172a', medical: '#0284c7' } }
+            }
+        }
+    </script>
+</head>
+<body class="bg-white dark:bg-slate-900 font-sans text-gray-800 dark:text-gray-100 antialiased overflow-x-hidden transition-colors duration-300">
+
+    <nav class="absolute w-full z-50 top-0 pt-6 px-4 md:px-8 flex justify-between items-center max-w-7xl mx-auto left-0 right-0">
+        
+        <div class="flex-1 flex justify-start">
+            <div class="text-2xl font-extrabold text-brandDark dark:text-white tracking-tight flex items-center transition-colors">
+                <img src="../frontend/static/PitaHijauPejuang.png" alt="" class="h-10">HealthCore.
+            </div>
+        </div>
+        
+        <ul class="hidden md:flex gap-8 font-semibold text-sm text-gray-600 dark:text-gray-300 items-center justify-center">
+            <li><a href="index.html" class="hover:text-brandDark dark:hover:text-green-400 transition">Home</a></li>
+            
+            <li class="relative group h-full py-2">
+                <button class="hover:text-green-600 dark:hover:text-green-400 transition flex items-center gap-1">
+                    Kesehatan Fisik <i class="fa-solid fa-chevron-down text-xs"></i>
+                </button>
+                <div class="absolute top-full left-1/2 transform -translate-x-1/2 pt-2 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-300 z-50">
+                    <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-gray-100 dark:border-slate-700 py-2">
+                        <a href="cekGula.html" class="block px-4 py-2 text-sm hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-green-600 dark:text-gray-200 transition">
+                            Cek Gula AI
+                        </a>
+                        <a href="dashboard.html" class="block px-4 py-2 text-sm hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-green-600 dark:text-gray-200 transition">
+                            Dashboard Riwayat
+                        </a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="relative group h-full py-2">
+                <button class="hover:text-brandDark dark:hover:text-green-400 transition flex items-center gap-1">
+                    Kesehatan Mental <i class="fa-solid fa-chevron-down text-xs"></i>
+                </button>
+                <div class="absolute top-full left-1/2 transform -translate-x-1/2 pt-2 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-300 z-50">
+                    <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-gray-100 dark:border-slate-700 py-2">
+                        <a href="mentalDetox.html" class="block px-4 py-2 text-sm hover:bg-purple-50 dark:hover:bg-slate-700 hover:text-green-600 dark:text-gray-200 transition">Detox Pornografi</a>
+                    </div>
+                </div>
+            </li>
+
+            <li><a href="kontak.html" class="hover:text-brandDark dark:hover:text-green-400 transition">Contact</a></li>
+        </ul>
+        
+        <div class="flex-1 flex justify-end items-center gap-3">
+            <button id="themeToggle" class="w-10 h-10 rounded-full bg-white dark:bg-slate-800 text-gray-600 dark:text-yellow-400 shadow-md border border-gray-100 dark:border-slate-700 flex items-center justify-center hover:scale-110 transition duration-300">
+                <i class="fa-solid fa-moon text-lg" id="themeIcon"></i>
+            </button>
+            
+            <button id="mobileMenuBtn" class="md:hidden w-10 h-10 rounded-xl bg-green-50 dark:bg-slate-800 text-green-600 dark:text-green-400 border border-green-100 dark:border-slate-700 flex items-center justify-center transition">
+                <i class="fa-solid fa-bars text-lg"></i>
+            </button>
+        </div>
+
+        <div id="mobileMenu" class="hidden absolute top-full left-4 right-4 mt-2 bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-gray-100 dark:border-slate-700 flex-col overflow-hidden transition-all duration-300">
+            <a href="index.html" class="px-6 py-4 border-b border-gray-50 dark:border-slate-700 font-bold text-gray-800 dark:text-gray-200 hover:bg-green-50 dark:hover:bg-slate-700 transition">Home</a>
+            <div class="px-6 py-4 border-b border-gray-50 dark:border-slate-700">
+                <span class="font-bold text-green-600 text-sm mb-2 block">Kesehatan Fisik</span>
+                <a href="cekGula.html" class="block pl-4 py-1 text-gray-600 dark:text-gray-400 hover:text-green-600 transition">Cek Gula AI</a>
+                <a href="dashboard.html" class="block pl-4 py-1 text-gray-600 dark:text-gray-400 hover:text-green-600 transition">Dashboard Riwayat</a>
+            </div>
+            <div class="px-6 py-4 border-b border-gray-50 dark:border-slate-700">
+                <span class="font-bold text-green-600 text-sm mb-2 block">Kesehatan Mental</span>
+                <a href="mentalDetox.html" class="block pl-4 py-1 text-gray-600 dark:text-gray-400 hover:text-green-600 transition">Detox Pornografi</a>
+            </div>
+            <a href="kontak.html" class="px-6 py-4 font-bold text-gray-800 dark:text-gray-200 hover:bg-green-50 dark:hover:bg-slate-700 transition">Contact</a>
+        </div>
+
+    </nav>
+
+    <section id="home" class="relative pt-32 pb-20 lg:pt-40 lg:pb-28 bg-gradient-to-b from-green-100 via-green-50 to-white dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 overflow-hidden transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 text-center relative z-10">
+            
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold text-brandDark dark:text-white tracking-tight leading-tight mb-6 transition-colors">
+                Satu Platform Cerdas Untuk <br> <span class="text-green-600 dark:text-green-400">Fisik & Mental</span> Anda.
+            </h1>
+            <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-10 max-w-2xl mx-auto transition-colors">
+                Dari pemantauan bahaya Diabetes hingga pemulihan dari Kecanduan Digital. Dapatkan wawasan kesehatan personal yang ditenagai oleh Llama 3 AI.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                <a href="cekGula.html" class="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-8 rounded-full shadow-lg transition transform hover:scale-105">
+                    <i class="fa-solid fa-droplet mr-2"></i> Diagnosis Fisik
+                </a>
+                <a href="dashboard.html" class="w-full sm:w-auto bg-white dark:bg-slate-800 text-green-600 border border-green-600 font-medium py-3 px-8 rounded-full shadow-lg transition transform hover:scale-105">
+                    <i class="fa-solid fa-chart-pie mr-2"></i> Lihat Riwayat
+                </a>
+                <a href="mentalDetox.html" class="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-8 rounded-full shadow-lg transition transform hover:scale-105">
+                    <i class="fa-solid fa-brain mr-2"></i> Detoks Mental
+                </a>
+            </div>
+
+            <div class="mt-16 relative max-w-4xl mx-auto h-[300px] md:h-[500px] flex justify-center items-end hidden sm:flex">
+                <img src="../frontend/static/medicalTeamReadyWork.jpg" 
+                     alt="Medical Professional" 
+                     class="h-full object-cover rounded-t-full relative z-10 border-4 border-white dark:border-slate-800 shadow-xl mask mask-squircle transition-colors">
+
+                <div class="absolute left-0 md:left-10 top-20 bg-white dark:bg-slate-800 p-4 md:p-6 rounded-2xl shadow-xl z-20 w-64 text-left border border-gray-100 dark:border-slate-700 transform -rotate-3 hover:rotate-0 transition duration-300">
+                    <div class="bg-green-100 dark:bg-slate-700 text-green-600 dark:text-green-400 w-10 h-10 rounded-full flex items-center justify-center mb-4"><i class="fa-solid fa-heart-pulse"></i></div>
+                    <h3 class="font-bold text-gray-800 dark:text-white mb-1">Cek Gula AI</h3>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">Rekomendasi nutrisi spesifik untuk menstabilkan gula darah Anda secara alami.</p>
+                </div>
+
+                <div class="absolute right-0 md:right-10 top-32 bg-white dark:bg-slate-800 p-4 md:p-6 rounded-2xl shadow-xl z-20 w-72 text-left border border-gray-100 dark:border-slate-700 transform rotate-3 hover:rotate-0 transition duration-300">
+                    <div class="bg-purple-100 dark:bg-slate-700 text-purple-600 dark:text-purple-400 w-10 h-10 rounded-full flex items-center justify-center mb-4"><i class="fa-solid fa-shield-heart"></i></div>
+                    <h3 class="font-bold text-gray-800 dark:text-white mb-1">Mind Detox Protocol</h3>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">Rencana pemulihan mental yang adaptif untuk melepaskan diri dari rantai kecanduan dopamin.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="vision" class="py-20 bg-white dark:bg-slate-900 relative transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-green-600 dark:text-green-400 font-bold tracking-wider text-sm uppercase mb-2 block">Mengapa Kami Hadir</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-brandDark dark:text-white mb-6">Mendefinisikan Ulang Makna Sehat di Era Digital.</h2>
+                <p class="text-gray-600 dark:text-gray-400 text-lg leading-relaxed">
+                    HealthCore lahir dari keprihatinan <strong>Tim <span class="text-green-600 dark:text-green-400">PitaHijauPejuang</span></strong> melihat generasi saat ini yang terjebak di antara ancaman penyakit metabolik (Diabetes) dan krisis mental akibat layar gawai (Kecanduan & FOMO). Kami membangun Website HealthCore dengan integrasi AI. Ini bukan sebagai pengganti dokter, melainkan sebagai "Penjaga Gerbang" pertama (First Responder) yang selalu ada di saku Anda 24/7.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center mt-12">
+                <div class="p-8 rounded-3xl bg-blue-50 dark:bg-slate-800 border border-blue-100 dark:border-slate-700 hover:shadow-xl transition duration-300 transform hover:-translate-y-2">
+                    <div class="w-16 h-16 mx-auto bg-white dark:bg-slate-700 rounded-2xl shadow-sm flex items-center justify-center mb-6 text-green-600 dark:text-green-400 text-2xl">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-3">Respon Instan</h3>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm">Di saat panik melihat angka gula darah naik atau pikiran sedang kacau, mesin AI kami memberikan panduan pertolongan pertama dalam hitungan detik.</p>
+                </div>
+                
+                <div class="p-8 rounded-3xl bg-purple-50 dark:bg-slate-800 border border-purple-100 dark:border-slate-700 hover:shadow-xl transition duration-300 transform hover:-translate-y-2 relative overflow-hidden">
+                    <div class="w-16 h-16 mx-auto bg-white dark:bg-slate-700 rounded-2xl shadow-sm flex items-center justify-center mb-6 text-green-600 dark:text-green-400 text-2xl relative z-10">
+                        <i class="fa-solid fa-scale-balanced"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-3 relative z-10">Keseimbangan Holistik</h3>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm relative z-10">Kami adalah platform pertama di TechSprint 2026 yang menggabungkan rekam medis fisik dan pemulihan mental dalam satu ekosistem terpadu.</p>
+                </div>
+
+                <div class="p-8 rounded-3xl bg-slate-50 dark:bg-slate-800 border border-gray-200 dark:border-slate-700 hover:shadow-xl transition duration-300 transform hover:-translate-y-2">
+                    <div class="w-16 h-16 mx-auto bg-white dark:bg-slate-700 rounded-2xl shadow-sm flex items-center justify-center mb-6 text-brandDark dark:text-white text-2xl">
+                        <i class="fa-solid fa-lock"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-3">Privasi Terjaga</h3>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm">Data keluhan dan curhatan mental Anda bersifat anonim dan diamankan dengan teknologi enkripsi. Ruang aman Anda adalah prioritas kami.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-gray-100 dark:border-slate-800 transition-colors duration-300">
+        <div class="text-center mb-20">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-brandDark dark:text-white tracking-tight mb-4">
+                Inovasi Kesehatan Fisik & Mental <br> dalam Satu Genggaman.
+            </h2>
+            <p class="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">HealthCore mengintegrasikan kecerdasan buatan dengan infrastruktur data yang aman untuk transformasi hidup Anda.</p>
+        </div>
+
+        <div class="flex flex-col lg:flex-row items-center gap-16">
+            <div class="lg:w-1/2 space-y-12">
+                
+                <div class="relative pl-8 border-l-4 border-green-600">
+                    <div class="absolute -left-3.5 top-0 bg-white dark:bg-slate-900 p-1 rounded-full">
+                        <div class="bg-green-600 text-white w-6 h-6 rounded flex items-center justify-center text-xs"><i class="fa-solid fa-droplet"></i></div>
+                    </div>
+                    <h3 class="text-xl font-bold text-brandDark dark:text-white mb-2">Pilar Fisik: Monitoring Real-Time.</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                        Pantau kadar gula darah Anda melalui <strong>Dashboard Interaktif</strong>. AI kami menganalisis tren data secara historis untuk memberikan peringatan dini sebelum risiko kesehatan meningkat.
+                    </p>
+                </div>
+
+                <div class="relative pl-8 border-l-4 border-green-600">
+                    <div class="absolute -left-3.5 top-0 bg-white dark:bg-slate-900 p-1 rounded-full">
+                        <div class="bg-green-600 text-white w-6 h-6 rounded flex items-center justify-center text-xs"><i class="fa-solid fa-brain"></i></div>
+                    </div>
+                    <h3 class="text-xl font-bold text-brandDark dark:text-white mb-2">Pilar Mental: Recovery AI-Guided.</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                        Lawan adiksi digital dan pornografi dengan bantuan asisten AI. Kami membantu Anda mengelola lonjakan dopamin dan membangun kembali kendali diri melalui terapi kognitif yang dipersonalisasi.
+                    </p>
+                </div>
+
+                <div class="relative pl-8 border-l-4 border-blue-500">
+                    <div class="absolute -left-3.5 top-0 bg-white dark:bg-slate-900 p-1 rounded-full">
+                        <div class="bg-blue-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs"><i class="fa-solid fa-shield-halved"></i></div>
+                    </div>
+                    <h3 class="text-xl font-bold text-brandDark dark:text-white mb-2">Infrastruktur Data & Rujukan Aman.</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                        Setiap log medis disimpan dalam <strong>Cloud Database Terenkripsi</strong> yang menjamin integritas data Anda. Jika diperlukan, sistem kami akan memfasilitasi rujukan langsung ke <strong>Klinik Mitra</strong> berbasis data yang valid dan siap tindak.
+                    </p>
+                </div>
+            </div>
+
+            <div class="lg:w-1/2 w-full">
+                <div class="bg-slate-50 dark:bg-slate-800 rounded-3xl p-8 border border-gray-200 dark:border-slate-700 shadow-2xl relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-500 to-green-500"></div>
+                    
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 bg-red-400 rounded-full"></span>
+                            <span class="w-3 h-3 bg-yellow-400 rounded-full"></span>
+                            <span class="w-3 h-3 bg-green-400 rounded-full"></span>
+                        </div>
+                        <div class="text-[10px] font-mono text-gray-400 uppercase tracking-widest">Secured by HealthCore Node</div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="p-4 bg-white dark:bg-slate-900 rounded-xl border border-gray-100 dark:border-slate-700 shadow-sm transition-transform hover:scale-[1.02]">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-[10px] font-bold text-blue-500">DATABASE SYNC</span>
+                                <span class="text-[10px] text-gray-400">Baru saja</span>
+                            </div>
+                            <div class="h-1.5 w-full bg-gray-100 dark:bg-slate-700 rounded-full overflow-hidden">
+                                <div class="h-full bg-blue-500 w-[100%] transition-all duration-1000"></div>
+                            </div>
+                            <p class="text-[10px] text-gray-500 mt-2 font-mono">Encrypted Data: 256-bit AES | Status: Secure</p>
+                        </div>
+
+                        <div class="flex justify-start gap-3 items-end opacity-80 scale-95">
+                            <div class="w-8 h-8 rounded-full bg-green-600 text-white flex items-center justify-center text-xs"><i class="fa-solid fa-robot"></i></div>
+                            <div class="bg-white dark:bg-slate-700 text-gray-700 dark:text-gray-200 text-[11px] py-2 px-4 rounded-2xl rounded-tl-sm border border-gray-100 dark:border-slate-600">
+                                <strong>Rekomendasi Medis:</strong> Segera hubungi klinik rujukan melalui tombol di Dashboard Anda.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-green-600 dark:bg-slate-900 text-white border-t-4 border-white dark:border-slate-800 py-12 px-4 mt-auto transition-colors duration-300">
+        <div class="max-w-6xl mx-auto flex flex-col items-center justify-center">
+            <p class="text-white dark:text-gray-400 font-medium text-sm mb-8 text-center max-w-md transition-colors">
+                Smart Digital Solution for Indonesia's Physical and Mental Wellbeing.
+            </p>
+            <div class="text-center text-xs text-white dark:text-gray-500 border-t border-slate-800 dark:border-slate-700 pt-6 w-full transition-colors">
+                &copy; 2026 Developed with <i class="fa-solid fa-heart text-red-700 mx-1"></i> by <span class=" font-bold tracking-wider">TEAM PITA HIJAU PEJUANG</span>.<br>
+                Hak Cipta Dilindungi.
+            </div>
+        </div>
+    </footer>
+
+    <script src="tema.js"></script>
+</body>
+</html>

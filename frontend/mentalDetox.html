@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth transition-colors duration-300">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Detox AI | PitaHijauPejuang</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="../frontend/static/PitaHijauPejuang.png">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: { 
+                    colors: { 
+                        medical: '#0284c7', 
+                        medicalDark: '#0369a1', 
+                        brandDark: '#0f172a',
+                        mental: '#9333ea', /* Ungu untuk tema menta l */
+                        mentalDark: '#7e22ce'
+                    } 
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gradient-to-b from-green-50 to-white dark:from-slate-900 dark:to-slate-800 min-h-screen font-sans text-gray-800 dark:text-gray-100 antialiased flex flex-col transition-colors duration-300">
+
+    <nav class="absolute w-full z-50 top-0 pt-6 px-4 md:px-8 flex justify-between items-center max-w-7xl mx-auto left-0 right-0">
+        
+        <div class="flex-1 flex justify-start">
+            <div class="text-2xl font-extrabold text-brandDark dark:text-white tracking-tight flex items-center transition-colors">
+                <img src="../frontend/static/PitaHijauPejuang.png" alt="" class="h-10">HealthCore.
+            </div>
+        </div>
+        
+        <ul class="hidden md:flex gap-8 font-semibold text-sm text-gray-600 dark:text-gray-300 items-center justify-center">
+            <li><a href="index.html" class="hover:text-brandDark dark:hover:text-green-400 transition">Home</a></li>
+            
+            <li class="relative group h-full py-2">
+                <button class="hover:text-green-600 dark:hover:text-green-400 transition flex items-center gap-1">
+                    Kesehatan Fisik <i class="fa-solid fa-chevron-down text-xs"></i>
+                </button>
+                <div class="absolute top-full left-1/2 transform -translate-x-1/2 pt-2 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-300 z-50">
+                    <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-gray-100 dark:border-slate-700 py-2">
+                        <a href="cekGula.html" class="block px-4 py-2 text-sm hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-green-600 dark:text-gray-200 transition">
+                            Cek Gula AI
+                        </a>
+                        <a href="dashboard.html" class="block px-4 py-2 text-sm hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-green-600 dark:text-gray-200 transition">
+                            Dashboard Riwayat
+                        </a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="relative group h-full py-2">
+                <button class="hover:text-brandDark dark:hover:text-green-400 transition flex items-center gap-1">
+                    Kesehatan Mental <i class="fa-solid fa-chevron-down text-xs"></i>
+                </button>
+                <div class="absolute top-full left-1/2 transform -translate-x-1/2 pt-2 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-300 z-50">
+                    <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-gray-100 dark:border-slate-700 py-2">
+                        <a href="mentalDetox.html" class="block px-4 py-2 text-sm hover:bg-purple-50 dark:hover:bg-slate-700 hover:text-green-600 dark:text-gray-200 transition">Detox Pornografi</a>
+                    </div>
+                </div>
+            </li>
+
+            <li><a href="kontak.html" class="hover:text-brandDark dark:hover:text-green-400 transition">Contact</a></li>
+        </ul>
+        
+        <div class="flex-1 flex justify-end items-center gap-3">
+            <button id="themeToggle" class="w-10 h-10 rounded-full bg-white dark:bg-slate-800 text-gray-600 dark:text-yellow-400 shadow-md border border-gray-100 dark:border-slate-700 flex items-center justify-center hover:scale-110 transition duration-300">
+                <i class="fa-solid fa-moon text-lg" id="themeIcon"></i>
+            </button>
+            
+            <button id="mobileMenuBtn" class="md:hidden w-10 h-10 rounded-xl bg-green-50 dark:bg-slate-800 text-green-600 dark:text-green-400 border border-green-100 dark:border-slate-700 flex items-center justify-center transition">
+                <i class="fa-solid fa-bars text-lg"></i>
+            </button>
+        </div>
+
+        <div id="mobileMenu" class="hidden absolute top-full left-4 right-4 mt-2 bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-gray-100 dark:border-slate-700 flex-col overflow-hidden transition-all duration-300">
+            <a href="index.html" class="px-6 py-4 border-b border-gray-50 dark:border-slate-700 font-bold text-gray-800 dark:text-gray-200 hover:bg-green-50 dark:hover:bg-slate-700 transition">Home</a>
+            <div class="px-6 py-4 border-b border-gray-50 dark:border-slate-700">
+                <span class="font-bold text-green-600 text-sm mb-2 block">Kesehatan Fisik</span>
+                <a href="cekGula.html" class="block pl-4 py-1 text-gray-600 dark:text-gray-400 hover:text-green-600 transition">Cek Gula AI</a>
+                <a href="dashboard.html" class="block pl-4 py-1 text-gray-600 dark:text-gray-400 hover:text-green-600 transition">Dashboard Riwayat</a>
+            </div>
+            <div class="px-6 py-4 border-b border-gray-50 dark:border-slate-700">
+                <span class="font-bold text-green-600 text-sm mb-2 block">Kesehatan Mental</span>
+                <a href="mentalDetox.html" class="block pl-4 py-1 text-gray-600 dark:text-gray-400 hover:text-green-600 transition">Detox Pornografi</a>
+            </div>
+            <a href="kontak.html" class="px-6 py-4 font-bold text-gray-800 dark:text-gray-200 hover:bg-green-50 dark:hover:bg-slate-700 transition">Contact</a>
+        </div>
+
+    </nav>
+
+    <main class="flex-grow flex items-center justify-center p-4 py-12">
+        <div class="max-w-3xl w-full">
+            
+            <div class="text-center m-10">
+                <h1 class="text-4xl font-extrabold text-brandDark dark:text-white tracking-tight mb-3 transition-colors">Mental Well-being AI</h1>
+                <p class="text-gray-500 dark:text-gray-400 text-lg transition-colors">Ruang aman Anda. Dapatkan panduan pemulihan psikologis instan.</p>
+            </div>
+
+            <div class="bg-white dark:bg-slate-800 rounded-3xl shadow-xl border border-gray-100 dark:border-slate-700 p-8 md:p-12 relative overflow-hidden z-10 transition-colors duration-300">
+                <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-green-50 to-green-400"></div>
+
+                <form id="mentalForm" class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 transition-colors">Pilih Fokus Pemulihan</label>
+                        <select id="mentalCategory" class="w-full px-5 py-4 rounded-xl border-2 border-gray-200 dark:border-slate-600 focus:outline-none focus:border-mental focus:ring-4 focus:ring-purple-50 dark:focus:ring-purple-900/30 text-gray-700 dark:text-white font-medium bg-gray-50 dark:bg-slate-700 transition duration-300 appearance-none">
+                            <option value="Kecanduan Pornografi">Detox Pornografi (Adiksi Dopamin)</option>
+                            <option value="Sindrom FOMO">Sindrom FOMO (Kecemasan Sosial)</option>
+                            <option value="Lingkungan Toxic">Lingkungan Toxic (Stres Interpersonal)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 transition-colors">Deskripsikan Perasaan Anda Saat Ini</label>
+                        <textarea id="mentalInput" placeholder="Contoh: Saya merasa gelisah, sulit fokus, dan ada dorongan kuat untuk kembali ke kebiasaan buruk tersebut..." required
+                            class="w-full px-5 py-4 rounded-xl border-2 border-gray-200 dark:border-slate-600 focus:outline-none focus:border-mental focus:ring-4 focus:ring-purple-50 dark:focus:ring-purple-900/30 text-gray-700 dark:text-white dark:placeholder-gray-400 bg-gray-50 dark:bg-slate-700 transition duration-300 min-h-[140px] resize-y"></textarea>
+                    </div>
+                    <button type="submit" id="submitBtn"
+                        class="w-full bg-brandDark dark:bg-green-600 hover:bg-gray-800 dark:hover:bg-green-700 text-white font-bold py-4 px-6 rounded-xl transition duration-300 flex items-center justify-center shadow-lg transform hover:-translate-y-1">
+                        <span id="btnText">Minta Panduan AI</span>
+                    </button>
+                </form>
+            </div>
+
+            <div id="resultSection" class="hidden mt-8 transform transition-all duration-500">
+                <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-purple-100 dark:border-slate-700 p-8 relative overflow-hidden transition-colors duration-300">
+                    <div class="absolute -right-10 -top-10 opacity-5"><i class="fa-solid fa-shield-heart text-9xl dark:text-white"></i></div>
+                    
+                    <div class="flex items-center gap-3 mb-6 border-b border-gray-100 dark:border-slate-700 pb-4 transition-colors">
+                        <div class="bg-purple-100 dark:bg-slate-700 text-purple-600 dark:text-purple-400 w-12 h-12 rounded-full flex items-center justify-center text-xl"><i class="fa-solid fa-robot"></i></div>
+                        <div>
+                            <h4 class="text-xs text-gray-400 dark:text-gray-500 uppercase tracking-widest font-bold">Analisis HealthCore</h4>
+                            <p class="text-xl font-extrabold text-brandDark dark:text-white transition-colors">Rencana Pemulihan Instan</p>
+                        </div>
+                    </div>
+                    
+                    <div id="resAdvice" class="text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-line font-medium text-lg transition-colors">
+                        </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="bg-green-600 dark:bg-slate-900 text-white border-t-4 border-white dark:border-slate-800 py-12 px-4 mt-60 transition-colors duration-300">
+        <div class="max-w-6xl mx-auto flex flex-col items-center justify-center">
+            <p class="text-white dark:text-gray-400 font-medium text-sm mb-8 text-center max-w-md transition-colors">
+                Smart Digital Solution for Indonesia's Physical and Mental Wellbeing.
+            </p>
+            <div class="text-center text-xs text-white dark:text-gray-500 border-t border-slate-800 dark:border-slate-700 pt-6 w-full transition-colors">
+                &copy; 2026 Developed with <i class="fa-solid fa-heart text-red-700 mx-1"></i> by <span class="text-white font-bold tracking-wider">TEAM PITA HIJAU PEJUANG</span>.<br>
+                Hak Cipta Dilindungi.
+            </div>
+        </div>
+    </footer>
+
+    <script src="mentalScript.js"></script>
+    <script src="tema.js"></script>
+</body>
+</html>

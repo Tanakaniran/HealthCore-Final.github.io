@@ -1,0 +1,26 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Smart Digital Solution for Indonesia's Physical and Mental Wellbeing.\r Proyek ini dibangun oleh Tim Pita Hijau Pejuang, untuk kompetisi TechSprint Innovation Cup 2026 dengan Tema \"Smart Digital Solution for \r Real World Problems\" dan SubTema \"Health & Wellbeing Technology\" .",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "axios": "^1.14.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "groq-sdk": "^1.1.2",
+    "helmet": "^8.1.0"
+  },
+  "devDependencies": {
+    "@supabase/supabase-js": "^2.103.3",
+    "@types/node": "^25.6.0"
+  }
+}
