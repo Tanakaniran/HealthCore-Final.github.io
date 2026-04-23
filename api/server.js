@@ -2,7 +2,9 @@ const express = require('express');
 const cors = require('cors');
 const supabase = require('./supabaseClient');
 const Groq = require('groq-sdk');
-require('dotenv').config();
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+}
 
 const app = express();
 app.use(cors());
