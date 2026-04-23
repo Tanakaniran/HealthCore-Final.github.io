@@ -84,4 +84,5 @@ app.post('/api/mental-check', async (req, res) => {
 });
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(` HealthCore Engine Ready by Team PitaHijauPejuang on Port ${PORT}`));
+/*app.listen*/(PORT, () => console.log(` HealthCore Engine Ready by Team PitaHijauPejuang on Port ${PORT}`));
+module.exports = app;

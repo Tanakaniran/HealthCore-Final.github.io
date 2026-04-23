@@ -18,7 +18,7 @@ if (mentalForm) {
 
         try {
             // Tembak API Mental Backend
-            const response = await fetch('http://localhost:5000/api/mental-check', {
+            const response = await fetch("/api/antrean", {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ category: category, feeling: feeling })
