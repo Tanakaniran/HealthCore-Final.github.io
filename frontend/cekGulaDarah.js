@@ -19,7 +19,7 @@ if (sugarForm) {
 
         try {
             // Tembak API. Juga pastikan server.js nyala di port 5000
-            const response = await fetch("/api/antrean", {
+            const response = await fetch('api/sugar-check', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ sugarLevel: parseInt(sugarInput) })
