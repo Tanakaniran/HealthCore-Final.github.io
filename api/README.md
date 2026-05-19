@@ -26,9 +26,5 @@ Aplikasi ini berjalan penuh di sisi Client-Side. Tidak perlu install node module
 2. buka terminal lalu ubah powershell menjadi github, dan klik node server. Server localhost dijalankan di server.js
 3. gunakan Live Server agar cepat dan mendapatkan pengalaman terbaik.
 
-## 🎥 Link Penting
-- Video Demonstrasi: [Link Video YouTube akan menyusul di sini]
-- Live Preview: [Link Vercel kamu taruh sini nanti]
-
 ---
 Developed with ❤️ by Team Pita Hijau Pejuang.
