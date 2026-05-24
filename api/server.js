@@ -8,11 +8,15 @@ if (process.env.NODE_ENV !== 'production') {
 
 const app = express();
 app.use(cors());
-app.use(express.json());
+
+// [SANGAT PENTING] Naikkan limit JSON untuk menerima Base64 gambar agar tidak Error 413
+app.use(express.json({ limit: '10mb' })); 
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
-// --- ENDPOINT KESEHATAN FISIK (Diabetes) ---
+// =====================================================================
+// --- 1. ENDPOINT KESEHATAN FISIK (Diabetes) ---
+// =====================================================================
 app.post('/api/sugar-check', async (req, res) => {
     const { sugarLevel } = req.body;
     if (!sugarLevel) return res.status(400).json({ error: "Input angka gula darah!" });
@@ -52,7 +56,10 @@ app.post('/api/sugar-check', async (req, res) => {
     }
 });
 
-// --- ENDPOINT KESEHATAN MENTAL ---
+
+// =====================================================================
+// --- 2. ENDPOINT KESEHATAN MENTAL (Detoks) ---
+// =====================================================================
 app.post('/api/mental-check', async (req, res) => {
     const { category, feeling } = req.body;
     if (!feeling) return res.status(400).json({ error: "Ceritakan apa yang Anda rasakan!" });
@@ -85,6 +92,62 @@ app.post('/api/mental-check', async (req, res) => {
     }
 });
 
-const PORT = process.env.PORT || 5000;
-//app.listen(PORT, () => console.log(` HealthCore Engine Ready by Team PitaHijauPejuang on Port ${PORT}`));
+
+// =====================================================================
+// --- 3. [BARU] ENDPOINT NUTRIVISION AI (Kamera Makanan) ---
+// =====================================================================
+app.post('/api/scan-food', async (req, res) => {
+    const { base64Image, userId } = req.body;
+    
+    if (!base64Image) return res.status(400).json({ error: "Gambar makanan tidak ditemukan!" });
+
+    try {
+        // Tembak Llama 3.2 Vision
+        const chatCompletion = await groq.chat.completions.create({
+            model: "llama-3.2-11b-vision-preview",
+            messages: [
+                {
+                    role: "system",
+                    content: `Anda adalah Ahli Gizi Klinis. Analisis gambar makanan ini. Output HANYA format JSON valid tanpa markdown, dengan struktur:
+                    { "nama_makanan": "String", "estimasi_indeks_glikemik": "Tinggi/Sedang/Rendah", "prediksi_lonjakan_gula": "Maks 20 kata", "saran_substitusi": "Maks 15 kata" }`
+                },
+                {
+                    role: "user",
+                    content: [{ type: "image_url", image_url: { url: base64Image } }]
+                }
+            ],
+            response_format: { type: "json_object" },
+            temperature: 0.3
+        });
+
+        const aiAnalysis = JSON.parse(chatCompletion.choices[0].message.content);
+
+        // Simpan ke Supabase agar menjadi rekam medis jangka panjang
+        const { data: dbData, error: dbError } = await supabase
+            .from('nutrivision_logs')
+            .insert([{
+                user_id: userId || 'anonymous',
+                food_name: aiAnalysis.nama_makanan,
+                glycemic_index: aiAnalysis.estimasi_indeks_glikemik,
+                medical_prediction: aiAnalysis.prediksi_lonjakan_gula,
+                suggestion: aiAnalysis.saran_substitusi
+            }]);
+
+        if (dbError) console.error("Peringatan: Gagal menyimpan riwayat ke DB:", dbError.message);
+
+        // Kirim balikan ke Frontend
+        res.status(200).json({ success: true, data: aiAnalysis });
+
+    } catch (err) {
+        console.error("ERROR VISION AI:", err.message);
+        res.status(500).json({ error: "Sistem gagal memproses gambar makanan." });
+    }
+});
+
+if (process.env.NODE_ENV !== 'production') {
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => console.log(`🚀 HealthCore Engine Ready by Team PitaHijauPejuang on Port ${PORT}`));
+}
+
+// Ekspor untuk environment Vercel (Serverless)
 module.exports = app;
