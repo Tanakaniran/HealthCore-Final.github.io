@@ -1,7 +1,7 @@
 // 1. Tangkap elemen form
 const sugarForm = document.getElementById('sugarForm');
 
-// 2. LOGIKA PELINDUNG: Hanya jalankan kode ini JIKA form ditemukan di halaman yang sedang dibuka
+// 2. LOGIKA PELINDUNG
 if (sugarForm) {
     sugarForm.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -18,12 +18,12 @@ if (sugarForm) {
         resultSection.classList.add('hidden');
 
         try {
-          `  // Tembak API. Juga pastikan server.js nyala di port 5000
+            // PERBAIKAN: Hapus tanda ` (backtick) yang membungkus fetch!
             const response = await fetch('/api/sugar-check', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ sugarLevel: parseInt(sugarInput) })
-            });`
+            });
 
             const result = await response.json();
 
@@ -43,13 +43,12 @@ if (sugarForm) {
                 
                 resultSection.classList.remove('hidden');
             } else {
-                alert("Error dari AI: " + result.error);
+                alert("Error dari AI: " + (result.error || "Gagal"));
             }
         } catch (error) {
-            console.error(error);
+            console.error("Error Detail:", error);
             alert("Gagal terhubung ke server Backend. Pastikan mesin menyala.");
         } finally {
-            // Kembalikan tombol ke mode awal
             submitBtn.disabled = false;
             submitBtn.classList.remove('opacity-70', 'cursor-not-allowed');
             btnText.innerHTML = 'Proses AI <i class="fa-solid fa-microchip ml-2"></i>';
