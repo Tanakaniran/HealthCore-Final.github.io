@@ -1,15 +1,17 @@
-const express = require('express');
-const cors = require('cors');
-const supabase = require('./supabaseClient');
-const Groq = require('groq-sdk');
+// [SANGAT PENTING]: Buka file .env DI BARIS PALING PERTAMA sebelum yang lain!
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
 
+const express = require('express');
+const cors = require('cors');
+const supabase = require('./supabaseClient'); // Sekarang Supabase aman karena .env sudah terbuka
+const Groq = require('groq-sdk');
+
 const app = express();
 app.use(cors());
 
-// [SANGAT PENTING] Naikkan limit JSON untuk menerima Base64 gambar agar tidak Error 413
+// Limit JSON untuk menerima Base64 gambar (Cegah Error 413)
 app.use(express.json({ limit: '10mb' })); 
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
@@ -31,7 +33,7 @@ app.post('/api/sugar-check', async (req, res) => {
                 role: "user",
                 content: `Pasien gula darah ${sugarLevel} mg/dL. Berikan 2 saran pendek (maks 30 kata): 1. Makanan, 2. Aktivitas. Format: Makanan: [isi] | Aktivitas: [isi]`
             }],
-            model: "llama-3.1-8b-instant",
+            model: "llama-3.1-8b-instant", // Model teks ini masih sangat aktif
         });
 
         const aiResponse = chatCompletion.choices[0].message.content;
@@ -55,7 +57,6 @@ app.post('/api/sugar-check', async (req, res) => {
         res.status(500).json({ error: "Sistem AI sedang sibuk" });
     }
 });
-
 
 // =====================================================================
 // --- 2. ENDPOINT KESEHATAN MENTAL (Detoks) ---
@@ -81,17 +82,13 @@ app.post('/api/mental-check', async (req, res) => {
 
         const aiAdvice = chatCompletion.choices[0].message.content;
 
-        res.status(200).json({ 
-            success: true, 
-            advice: aiAdvice 
-        });
+        res.status(200).json({ success: true, advice: aiAdvice });
 
     } catch (err) {
         console.error("ERROR MENTAL:", err.message);
         res.status(500).json({ error: "Gagal memproses panduan AI mental." });
     }
 });
-
 
 // =====================================================================
 // --- 3. [BARU] ENDPOINT NUTRIVISION AI (Kamera Makanan) ---
@@ -102,9 +99,9 @@ app.post('/api/scan-food', async (req, res) => {
     if (!base64Image) return res.status(400).json({ error: "Gambar makanan tidak ditemukan!" });
 
     try {
-        // Tembak Llama 3.2 Vision
+        // [PERBAIKAN MODEL]: Menggunakan Llama 4 Scout (Model Vision Resmi Groq Terbaru)
         const chatCompletion = await groq.chat.completions.create({
-            model: "llama-3.2-11b-vision-instruct",
+            model: "meta-llama/llama-4-scout-17b-16e-instruct",
             messages: [
                 {
                     role: "system",
@@ -122,7 +119,7 @@ app.post('/api/scan-food', async (req, res) => {
 
         const aiAnalysis = JSON.parse(chatCompletion.choices[0].message.content);
 
-        // Simpan ke Supabase agar menjadi rekam medis jangka panjang
+        // Menyimpan log ke Supabase
         const { data: dbData, error: dbError } = await supabase
             .from('nutrivision_logs')
             .insert([{
@@ -135,7 +132,6 @@ app.post('/api/scan-food', async (req, res) => {
 
         if (dbError) console.error("Peringatan: Gagal menyimpan riwayat ke DB:", dbError.message);
 
-        // Kirim balikan ke Frontend
         res.status(200).json({ success: true, data: aiAnalysis });
 
     } catch (err) {
@@ -144,10 +140,13 @@ app.post('/api/scan-food', async (req, res) => {
     }
 });
 
+// =====================================================================
+// --- KONFIGURASI SERVER ---
+// =====================================================================
+// Blok ini TIDAK bermasalah. Ini wajib ada agar Vercel dan Localhost sama-sama bisa hidup.
 if (process.env.NODE_ENV !== 'production') {
     const PORT = process.env.PORT || 3000;
     app.listen(PORT, () => console.log(`🚀 HealthCore Engine Ready by Team PitaHijauPejuang on Port ${PORT}`));
 }
 
-// Ekspor untuk environment Vercel (Serverless)
 module.exports = app;
