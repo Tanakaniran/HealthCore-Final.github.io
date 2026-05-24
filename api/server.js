@@ -104,7 +104,7 @@ app.post('/api/scan-food', async (req, res) => {
     try {
         // Tembak Llama 3.2 Vision
         const chatCompletion = await groq.chat.completions.create({
-            model: "llama-3.2-11b-vision-preview",
+            model: "llama-3.2-11b-vision-instruct",
             messages: [
                 {
                     role: "system",
