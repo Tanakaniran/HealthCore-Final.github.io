@@ -81,7 +81,6 @@ async function sendToNutriVisionAPI(base64Image) {
         if (resData.success) {
             aiResultArea.classList.remove('hidden');
             
-            // Suntikkan data dari Llama-3.2 Vision ke elemen HTML
             document.getElementById('resFoodName').innerText = resData.data.nama_makanan;
             document.getElementById('resPrediction').innerText = resData.data.prediksi_lonjakan_gula;
             document.getElementById('resSuggestion').innerText = resData.data.saran_substitusi;

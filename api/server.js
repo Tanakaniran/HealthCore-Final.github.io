@@ -19,26 +19,26 @@ const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 // =====================================================================
 // --- 1. ENDPOINT KESEHATAN FISIK (Diabetes) ---
 // =====================================================================
+// --- 1. ENDPOINT KESEHATAN FISIK (DIAGNOSTIK VERSION) ---
 app.post('/api/sugar-check', async (req, res) => {
     const { sugarLevel } = req.body;
-    if (!sugarLevel) return res.status(400).json({ error: "Input angka gula darah!" });
+    if (!sugarLevel) return res.status(400).json({ error: "Input angka gula darah kosong!" });
 
     try {
-        let status = "Normal";
-        if (sugarLevel > 140) status = "Tinggi";
-        if (sugarLevel < 70) status = "Rendah";
+        let status = sugarLevel > 140 ? "Tinggi" : (sugarLevel < 70 ? "Rendah" : "Normal");
 
+        // AI Logic
         const chatCompletion = await groq.chat.completions.create({
-            messages: [{
-                role: "user",
-                content: `Pasien gula darah ${sugarLevel} mg/dL. Berikan 2 saran pendek (maks 30 kata): 1. Makanan, 2. Aktivitas. Format: Makanan: [isi] | Aktivitas: [isi]`
-            }],
-            model: "llama-3.1-8b-instant", // Model teks ini masih sangat aktif
+            messages: [{ role: "user", content: `Pasien gula darah ${sugarLevel} mg/dL. Berikan 2 saran pendek. Format: Makanan: [isi] | Aktivitas: [isi]` }],
+            model: "llama-3.1-8b-instant",
         });
 
         const aiResponse = chatCompletion.choices[0].message.content;
         const [food, act] = aiResponse.split('|');
 
+        console.log("DEBUG: Mencoba insert ke glucose_logs...");
+
+        // PENTING: Periksa apakah nama kolom ini sama persis dengan yang ada di Supabase Anda!
         const { data, error } = await supabase
             .from('glucose_logs')
             .insert([{ 
@@ -49,12 +49,16 @@ app.post('/api/sugar-check', async (req, res) => {
             }])
             .select();
 
-        if (error) throw error;
+        if (error) {
+            console.error("DEBUG SUPABASE ERROR DETAIL:", JSON.stringify(error, null, 2));
+            return res.status(500).json({ error: "DB Error: " + error.message });
+        }
+
         res.status(200).json({ success: true, data: data[0] });
 
     } catch (err) {
-        console.error("ERROR FISIK:", err.message);
-        res.status(500).json({ error: "Sistem AI sedang sibuk" });
+        console.error("DEBUG CATCH ERROR:", err);
+        res.status(500).json({ error: "Sistem Error: " + err.message });
     }
 });
 
