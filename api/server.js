@@ -5,7 +5,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 const express = require('express');
 const cors = require('cors');
-const supabase = require('./supabaseClient'); // Sekarang Supabase aman karena .env sudah terbuka
+const supabase = require('./supabaseClient');
 const Groq = require('groq-sdk');
 
 const app = express();
@@ -103,7 +103,7 @@ app.post('/api/scan-food', async (req, res) => {
     if (!base64Image) return res.status(400).json({ error: "Gambar makanan tidak ditemukan!" });
 
     try {
-        // [PERBAIKAN MODEL]: Menggunakan Llama 4 Scout (Model Vision Resmi Groq Terbaru)
+        // [PERBAIKAN MODEL]: Menggunakan Llama 4 Scout (Model Vision Resmi Groq Terbaru eaaaa)
         const chatCompletion = await groq.chat.completions.create({
             model: "meta-llama/llama-4-scout-17b-16e-instruct",
             messages: [
